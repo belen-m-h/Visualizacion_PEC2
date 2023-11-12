@@ -30,7 +30,7 @@ fig = plt.figure(
 
     values= data['values'] / 100,  # Convert actual number to a reasonable block number
     legend= {'loc': 'upper left', 'bbox_to_anchor': (1.05, 1), 'fontsize': 8},
-    title= {'label': 'Per capita electricity fossil nuclear renewables', 'loc': 'left', 'fontsize': 12},
+    title= {'label': 'Fossil, Nuclear, Renewables', 'loc': 'left', 'fontsize': 12},
     icons=iconos_por_categoria,
     rows=5,  # Outside parameter applied to all subplots, same as below
     font_size=24,
@@ -38,7 +38,7 @@ fig = plt.figure(
     figsize=(6, 5)
 )
 
-fig.suptitle('Vehicle Production by Vehicle Type', fontsize=14, fontweight='bold')
+fig.suptitle('Per capita electricity type', fontsize=14, fontweight='bold')
 fig.supxlabel('1 block = 1000 vehicles', fontsize=8, x=0.14)
 fig.set_facecolor('#EEEDE7')
 
