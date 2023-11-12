@@ -1,49 +1,60 @@
-import matplotlib.pyplot as plt
 import pandas as pd
+import matplotlib.pyplot as plt
+from pywaffle import Waffle
+
+
+
 
 
 # Nombre del archivo CSV
-csv_file = 'access-to-electricity-vs-gdp-per-capita.csv'
+csv_file = 'per-capita-electricity-fossil-nuclear-renewables.csv'
 data = pd.read_csv(csv_file)
 # Filtra los datos por año
 year = 2020
+entity= 'Spain'
 data_2020 = data[data['Year'] == year]
-needed_data = data_2020[['Entity', 'Access to electricity (% of population)']]
+data_2020_spain = data_2020[data_2020['Entity'] == entity]
+needed_data = data_2020_spain[['Fossil fuel electricity per capita (kWh) (adapted for visualization of chart per-capita-electricity-fossil-nuclear-renewables)',
+       'Nuclear electricity per capita (kWh) (adapted for visualization of chart per-capita-electricity-fossil-nuclear-renewables)',
+       'Renewable electricity per capita (kWh) (adapted for visualization of chart per-capita-electricity-fossil-nuclear-renewables)']]
 
-diccionario_resultante = {}
+#        'Fossil fuel electricity per capita (kWh) ',
+#        'Nuclear electricity per capita (kWh)',
+#        'Renewable electricity per capita (kWh)'],
+#       dtype='object'
+diccionario_resultante = needed_data.to_dict(orient='index')
 
 
-for index, fila in needed_data.iterrows():
-    entity = fila['Entity']
-    value = fila['Access to electricity (% of population)']
-    diccionario_resultante[entity] = value
 
-data_dict_without_nan = {clave: valor for clave, valor in diccionario_resultante.items() if not pd.isna(valor)}
+data = pd.DataFrame(
+    {
+        'labels': diccionario_resultante[4980].keys(),
+        'values': diccionario_resultante[4980].values(),
+    },
+).set_index('labels')
+iconos_por_categoria = ['fire', 'atom', 'leaf']
+# A glance of the data:
+#             Factory A  Factory B  Factory C
+# labels
+# Car             27384      22147       8932
+# Truck            7354       6678       3879
+# Motorcycle       3245       2156       1196
+print(data['values'].keys()  )
+fig = plt.figure(
+    FigureClass=Waffle,
 
-# Datos de ejemplo: Cantidad de elementos por categoría
-categorias = ['A', 'B', 'C', 'D']
-cantidad_elementos = [15, 30, 45, 20]
+    values= data['values'] / 100,  # Convert actual number to a reasonable block number
+    legend= {'loc': 'upper left', 'bbox_to_anchor': (1.05, 1), 'fontsize': 8},
+    title= {'label': 'Per capita electricity fossil nuclear renewables', 'loc': 'left', 'fontsize': 12},
+    icons=iconos_por_categoria,
+    rows=5,  # Outside parameter applied to all subplots, same as below
+    font_size=24,
+    colors=["#FF5733", "#3366FF", "#33FF65"],
+    figsize=(6, 5)
+)
 
-# Crear una figura
-fig, ax = plt.subplots()
+fig.suptitle('Vehicle Production by Vehicle Type', fontsize=14, fontweight='bold')
+fig.supxlabel('1 block = 1000 vehicles', fontsize=8, x=0.14)
+fig.set_facecolor('#EEEDE7')
 
-# Configurar la ubicación de los iconos
-x = [1, 2, 3, 4]  # Posiciones en el eje x
-y = [1] * len(categorias)  # Posición en el eje y (en este caso, todos en la misma línea)
-
-# Dibujar iconos para cada categoría
-for i in range(len(categorias)):
-    ax.text(x[i], y[i], categorias[i], fontsize=25, ha='center', va='center', color='blue')
-    ax.text(x[i], y[i], f'({cantidad_elementos[i]})', fontsize=10, ha='center', va='bottom', color='black')
-
-# Configurar límites del gráfico
-ax.set_xlim(0, 5)
-ax.set_ylim(0, 3)
-
-# Configurar etiquetas y título
-ax.set_xticks([])
-ax.set_yticks([])
-ax.set_title('Icon Chart')
-
-# Mostrar el gráfico
 plt.show()
