@@ -4,9 +4,9 @@ En esta actividad se han creado trestres pequeñas visualizaciones usando técni
 
 ## Tipos de visualizaciones
 
-- [Tag Cloud](##Tag Cloud)
-- [Icon Chart](#uso)
-- [Beeswarm Chart](#contribución)
+- [Tag Cloud](#tag-cloud )
+- [Icon Chart](#icon-chart)
+- [Beeswarm Chart](#beeswarm-chart)
 
 
 ## Tag Cloud 
