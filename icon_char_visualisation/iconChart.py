@@ -2,10 +2,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pywaffle import Waffle
 
-
-
-
-
 # Nombre del archivo CSV
 csv_file = 'per-capita-electricity-fossil-nuclear-renewables.csv'
 data = pd.read_csv(csv_file)
@@ -17,11 +13,6 @@ data_2020_spain = data_2020[data_2020['Entity'] == entity]
 needed_data = data_2020_spain[['Fossil fuel electricity per capita (kWh) (adapted for visualization of chart per-capita-electricity-fossil-nuclear-renewables)',
        'Nuclear electricity per capita (kWh) (adapted for visualization of chart per-capita-electricity-fossil-nuclear-renewables)',
        'Renewable electricity per capita (kWh) (adapted for visualization of chart per-capita-electricity-fossil-nuclear-renewables)']]
-
-#        'Fossil fuel electricity per capita (kWh) ',
-#        'Nuclear electricity per capita (kWh)',
-#        'Renewable electricity per capita (kWh)'],
-#       dtype='object'
 diccionario_resultante = needed_data.to_dict(orient='index')
 
 
@@ -33,13 +24,7 @@ data = pd.DataFrame(
     },
 ).set_index('labels')
 iconos_por_categoria = ['fire', 'atom', 'leaf']
-# A glance of the data:
-#             Factory A  Factory B  Factory C
-# labels
-# Car             27384      22147       8932
-# Truck            7354       6678       3879
-# Motorcycle       3245       2156       1196
-print(data['values'].keys()  )
+
 fig = plt.figure(
     FigureClass=Waffle,
 
