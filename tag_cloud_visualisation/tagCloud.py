@@ -27,7 +27,9 @@ wordcloud = WordCloud(width=800, height=400, background_color='white')
 wordcloud.generate_from_frequencies(data_dict_without_nan)
 
 # Mostrar la nube de etiquetas
+
 plt.figure(figsize=(10, 5))
 plt.imshow(wordcloud, interpolation='bilinear')
 plt.axis('off')
+plt.title('Access to electricity (% of population)')
 plt.show()
